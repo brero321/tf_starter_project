@@ -1,0 +1,17 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+
+# AWS credentials (never commit these)
+.aws/credentials
+.aws/config
+
+# Lambda zip files
+lambda/*.zip
+
+# IDE
+.vscode/
+.idea/
