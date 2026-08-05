@@ -10,15 +10,16 @@ def lambda_handler(event, context):
     # runtime converts the event object to a Python dictionary
     length = event['length']
     width = event['width']
+    height = event['height']
     
-    area = calculate_area(length, width)
-    print(f"The area is {area}")
+    height = calculate_area(length, width, height)
+    print(f"The volume is {volume}")
         
     logger.info(f"CloudWatch logs group: {context.log_group_name}")
     
     # return the calculated area as a JSON string
-    data = {"area": area}
+    data = {"volume": volume}
     return json.dumps(data)
     
-def calculate_area(length, width):
-    return length*width
+def calculate_volume(length, width, height):
+    return length*width*height
