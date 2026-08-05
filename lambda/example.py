@@ -1,10 +1,16 @@
 import json
 import logging
+import boto3
+import secrets
+import os
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+
 def lambda_handler(event, context):
+    bucket_name = os.environ["BUCKET_NAME"]
+    s3 = boto3.client("s3")
     
     # Get the length and width parameters from the event object. The 
     # runtime converts the event object to a Python dictionary
@@ -13,7 +19,10 @@ def lambda_handler(event, context):
     height = event['height']
     
     volume = calculate_volume(length, width, height)
-    print(f"The volume is {volume}")
+    volume_message = f"The volume is {volume}"
+
+    random_key = secrets.token_hex(8)
+    s3.put_object(Bucket=bucket_name, Key=f"example_file_{random_key}.txt", Body=volume_message)
         
     logger.info(f"CloudWatch logs group: {context.log_group_name}")
     
